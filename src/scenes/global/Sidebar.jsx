@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
+import { Sidebar, Menu, MenuItem, useProSidebar, sidebarClasses } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { tokens } from "../../theme";
@@ -14,15 +14,16 @@ import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import PetsIcon from '@mui/icons-material/Pets';
 import KitchenIcon from '@mui/icons-material/Kitchen';
 
-const Item = ({ title, to, icon, selected, setSelected }) => {
+
+
+
+const Item = ({ title, to, icon, selected, setSelected}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   return (
     <MenuItem
       active={selected === title}
-      sx={{
-        color: colors.grey[100],
-      }}
       onClick={() => setSelected(title)}
       icon={icon}
     >
@@ -41,41 +42,63 @@ const MySidebar = () => {
   const styles = {
     sidebar: {
         height: "100%",
-        color: colors.primary[800]
+        backgroundColor: colors.primary[800],
     },
     menuItems: {
         margin: "10px 0 20px 0",
-        "& .proSidebarInner": {
-            background: `${colors.primary[800]} !important`,
-          },
-          "& .proIconWrapper": {
-            backgroundColor: "transparent !important",
-          },
-          "& .proInnerItem": {
-            padding: "5px 35px 5px 20px !important",
-          },
-          "& .proInnerItem:hover": {
-            color: "#868dfb !important",
-          },
-          "& .proMenuItem.active": {
-            color: "#6870fa !important",
-          },
+        color: "black",
+        "& .pro-sidebar-inner": {
+          background: `${colors.primary[400]} !important`,
+        },
+        "& .pro-icon-wrapper": {
+          backgroundColor: "transparent !important",
+        },
+        "& .pro-item-content": {
+          color: "red !important",
+          padding: "5px 35px 5px 20px !important",
+        },
+        "& .ps-menu-button:hover": {
+          color: "#868dfb !important",
+        },
+        "& .pro-menu-item.active": {
+          color: "#6870fa !important",
+        },
+        
     }
   };
 
   return (
-    <Box sx={styles.sidebar}>
+    <Box style={{
+      opacity: collapsed ? 0.8 : 1,
+    }}>
       <Sidebar 
         transitionDuration={500}
-        style={styles.sidebar}
+        rootStyles={{
+          [`.${sidebarClasses.container}`]: {
+            backgroundColor: colors.primary[400],
+          },
+          [`.${sidebarClasses.MenuItem}`]: {
+            color: "magenta",
+          },
+          height: "100%",
+          
+        }}
         >
-        <Menu iconShape="square" >
+        <Menu iconShape="square" 
+          menuItemStyles={{
+            button: ({ level, active, disabled }) => {
+              if (level === 0)
+                return {
+                  color: active ? '#f5d9ff' : '#ce7e00',
+                  backgroundColor: active ? '#ff9d02' : colors.primary[400],
+                };
+            }
+          }}>
           {/* LOGO AND MENU ICON */}
-          <MenuItem
-            transitionDuration={500}
+          <MenuItem 
             onClick={() => collapseSidebar()}
             icon={collapsed ? <MenuOutlinedIcon /> : undefined}
-            sx={styles.menuItems}
+            rootStyles={styles.menuItems}
           >
             {!collapsed && (
               <Box
@@ -111,7 +134,7 @@ const MySidebar = () => {
           )}
 
           <Box paddingLeft={collapsed ? undefined : "10%"} style={styles.menuItems}>
-            <Item
+            <Item 
               title="Dashboard"
               to="/"
               icon={<HomeOutlinedIcon />}
@@ -127,7 +150,7 @@ const MySidebar = () => {
               Data
             </Typography>
 
-            <Item
+            <Item 
               title="Pets"
               to="/form"
               icon={<PetsIcon />}
@@ -135,7 +158,7 @@ const MySidebar = () => {
               setSelected={setSelected}
             />
             
-            <Item
+            <Item 
               title="Fridge"
               to="/form"
               icon={<KitchenIcon />}
@@ -151,14 +174,14 @@ const MySidebar = () => {
               Pages
             </Typography>
             
-            <Item
+            <Item 
               title="Feeding Calendar"
               to="/calendar"
               icon={<CalendarTodayOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            <Item 
               title="FAQ Page"
               to="/faq"
               icon={<HelpOutlineOutlinedIcon />}
@@ -166,35 +189,35 @@ const MySidebar = () => {
               setSelected={setSelected}
             />
 
-            <Typography
+            <Typography 
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
               Charts (these are probably useless for now) {/* Except maybe a histogram of a pet's feeding habits*/}
             </Typography>
-            <Item
+            <Item 
               title="Bar Chart"
               to="/bar"
               icon={<BarChartOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            <Item 
               title="Pie Chart"
               to="/pie"
               icon={<PieChartOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            <Item 
               title="Line Chart"
               to="/line"
               icon={<TimelineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            <Item 
               title="Geography Chart"
               to="/geography"
               icon={<MapOutlinedIcon />}
