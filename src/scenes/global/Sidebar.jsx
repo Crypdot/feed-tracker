@@ -152,7 +152,7 @@ const MySidebar = () => {
 
             <Item 
               title="Pets"
-              to="/form"
+              to="/pets"
               icon={<PetsIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -160,7 +160,7 @@ const MySidebar = () => {
             
             <Item 
               title="Fridge"
-              to="/form"
+              to="/fridge"
               icon={<KitchenIcon />}
               selected={selected}
               setSelected={setSelected}
