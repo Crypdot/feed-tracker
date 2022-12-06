@@ -5,7 +5,7 @@ import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
 // import Pets from "./scenes/pets";
-// import Fridge from "./scenes/fridge";
+import Fridge from "./scenes/fridge";
 // import Bar from "./scenes/bar";
 // import Form from "./scenes/form";
 // import Line from "./scenes/line";
@@ -27,7 +27,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />}  />
               {/* <Route path="/pets" element={<Pets />}  /> */}
-              {/* <Route path="/fridge" element={<Fridge />}  /> */}
+              <Route path="/fridge" element={<Fridge />}  /> 
               <Route path="/calendar" element={<Calendar />}  /> 
               {/* <Route path="/form" element={<Form />}  /> */}
               {/* <Route path="/faq" element={<FAQ />}  /> */}
